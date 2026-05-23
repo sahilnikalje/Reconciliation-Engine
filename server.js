@@ -3,9 +3,11 @@ const express=require('express')
 const reconciliationRouter=require('./src/features/reconciliation/reconciliation.routes')
 const errorHandler=require('./src/middleware/errorHandler')
 const connectDB=require('./src/config/db')
+const ingestionRouter = require("./src/features/ingestion/ingestion.routes");
 const app=express()
 
-app.use('/api', reconciliationRouter)
+app.use('/api/reconciliation', reconciliationRouter)
+app.use('/api/ingestion', ingestionRouter)
 app.use(errorHandler)
 
 
