@@ -1,23 +1,11 @@
-const fs=require('fs')
-const csvParser=require('csv-parser')
-const logger=require('../../utils/logger')
-const{validateRow}=require('./ingestion.validator')
-const Transaction=require('../../models/Transaction')
-const InvalidTransaction=require('../../models/InvalidTransaction')
-
-const assetAliases = {
-  btc: "Bitcoin",
-  bitcoin: "Bitcoin",
-  eth: "Ethereum",
-  ethereum: "Ethereum",
-}
-
-const normalizeType = (type) => type?.trim().toUpperCase()
-
-const normalizeAsset = (asset) => {
-  const key = asset?.trim().toLowerCase();
-  return assetAliases[key] || asset?.trim();
-}
+const fs = require("fs");
+const csvParser = require("csv-parser");
+const logger = require("../../utils/logger");
+const { validateRow } = require("./ingestion.validator");
+const { normalizeAsset } = require("../normalization/assetNormalizer");
+const { normalizeType } = require("../normalization/typeMapper");
+const Transaction = require("../../models/Transaction");
+const InvalidTransaction = require("../../models/InvalidTransaction");
 
 const parseAndStoreCSV = (filePath, source) => {
   return new Promise((resolve, reject) => {
@@ -29,14 +17,12 @@ const parseAndStoreCSV = (filePath, source) => {
         const { isValid, reason } = validateRow(row);
 
         if (!isValid) {
-          //todo Store invalid row with the reason it failed
-          logger.warn(`Invalid row in ${source}: ${reason}`);
+          logger.warn(`Invalid row from ${source}: ${reason}`);
           await InvalidTransaction.create({ rawRow: row, source, reason });
           results.invalid++;
           return;
         }
 
-        //todo Store valid row after normalization
         await Transaction.create({
           transactionId: row.transaction_id.trim(),
           timestamp: new Date(row.timestamp),
@@ -59,6 +45,6 @@ const parseAndStoreCSV = (filePath, source) => {
         reject(err);
       });
   });
-}
+};
 
-module.exports = { parseAndStoreCSV }
+module.exports = { parseAndStoreCSV };
