@@ -7,6 +7,7 @@ const reportsRouter = require('./src/features/reports/reports.routes')
 const connectDB=require('./src/config/db')
 
 const app=express()
+app.use(express.json())
 
 app.use('/api/reconciliation', reconciliationRouter)
 app.use('/api/ingestion', ingestionRouter)
