@@ -53,7 +53,7 @@ npm install
 
 ```env
 PORT=3000
-MONGODB_URI=your_mongodb_connection_string
+MONGO_URI=your_mongodb_connection_string
 TIMESTAMP_TOLERANCE_SECONDS=300
 QUANTITY_TOLERANCE_PCT=0.01
 ```
