@@ -30,8 +30,8 @@ const parseAndStoreCSV = (filePath, source) => {
           asset: row.asset.trim(),
           normalizedAsset: normalizeAsset(row.asset),
           quantity: parseFloat(row.quantity),
-          transactionType: row.transaction_type.trim(),
-          normalizedType: normalizeType(row.transaction_type),
+          transactionType: row.type.trim(),
+          normalizedType: normalizeType(row.type),
           source,
         });
       })
