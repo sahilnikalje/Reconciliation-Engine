@@ -2,12 +2,15 @@ require('dotenv').config()
 const express=require('express')
 const reconciliationRouter=require('./src/features/reconciliation/reconciliation.routes')
 const errorHandler=require('./src/middleware/errorHandler')
-const connectDB=require('./src/config/db')
 const ingestionRouter = require("./src/features/ingestion/ingestion.routes");
+const reportsRouter = require('./src/features/reports/reports.routes')
+const connectDB=require('./src/config/db')
+
 const app=express()
 
 app.use('/api/reconciliation', reconciliationRouter)
 app.use('/api/ingestion', ingestionRouter)
+app.use('/api/reports', reportsRouter)
 app.use(errorHandler)
 
 
