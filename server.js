@@ -1,5 +1,5 @@
 
-require('dotenv').config()
+require('dotenv').config({ silent: true })
 const express=require('express')
 const reconciliationRouter=require('./src/features/reconciliation/reconciliation.routes')
 const errorHandler=require('./src/middleware/errorHandler')
