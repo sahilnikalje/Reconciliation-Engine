@@ -1,4 +1,3 @@
-console.log("MONGODB_URI:", process.env.MONGODB_URI ? "loaded" : "missing");
 require('dotenv').config()
 const express=require('express')
 const reconciliationRouter=require('./src/features/reconciliation/reconciliation.routes')
