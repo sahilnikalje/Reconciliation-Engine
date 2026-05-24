@@ -9,6 +9,11 @@ const connectDB=require('./src/config/db')
 const app=express()
 app.use(express.json())
 
+// Health check route
+app.get("/", (req, res) => {
+  res.json({ message: "Reconciliation Engine is running" });
+});
+
 app.use('/api/reconciliation', reconciliationRouter)
 app.use('/api/ingestion', ingestionRouter)
 app.use('/api/reports', reportsRouter)
